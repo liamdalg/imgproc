@@ -4,7 +4,8 @@ Provides functionality for processing images,
 such as edge detection, filters, etc.
 """
 
-from PIL import Image
+import numpy as np
+import cv2 as cv
 
 
 __version__ = '0.1'
