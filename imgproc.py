@@ -21,8 +21,16 @@ def _kernel_convolution_2d(arr: np.ndarray, kernel: np.ndarray) -> np.ndarray:
             conv[i][j] = np.sum(padded_arr[i:(i + rows), j:(j + cols)] * kernel)
 
     return conv
+
+def sobel_operator(img: np.ndarray) -> np.ndarray:
+    sobel_x = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]])
+    sobel_y = np.array([[1, 2, 1], [0, 0, 0], [-1, -2, -1]])
+    x = _kernel_convolution_2d(img, sobel_x)
+    y = _kernel_convolution_2d(img, sobel_y)
+    cv.imwrite('outx.jpg', x)
+    cv.imwrite('outy.jpg', y)
     return img
 
 
-def laplacian_operator(img):
+def laplacian_operator(img: np.ndarray) -> np.ndarray:
     return img
