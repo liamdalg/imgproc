@@ -11,6 +11,7 @@ __version__ = '0.1'
 __author__ = 'liamdalg'
 
 def _kernel_convolution_2d(arr: np.ndarray, kernel: np.ndarray) -> np.ndarray:
+    # TODO: Optimize this please!
     rows, cols = kernel.shape
     x, y = rows // 2, cols // 2
     flipped_kernel = np.fliplr(np.flipud(kernel))
