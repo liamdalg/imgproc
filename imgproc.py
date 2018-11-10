@@ -11,6 +11,16 @@ __version__ = '0.1'
 __author__ = 'liamdalg'
 
 def _kernel_convolution_2d(arr: np.ndarray, kernel: np.ndarray) -> np.ndarray:
+    """Returns a convolved numpy array.
+
+    Note that the source array is padded with zeros around the edges. This 
+    ensures that the resulting array has the same shape as the source.
+
+    Args:
+        arr: 2 dimensional source array to convolve.
+        kernel: 2 dimensional kernel - this is flipped during convolution.
+    """
+
     # TODO: Optimize this please!
     rows, cols = kernel.shape
     x, y = rows // 2, cols // 2
@@ -24,7 +34,19 @@ def _kernel_convolution_2d(arr: np.ndarray, kernel: np.ndarray) -> np.ndarray:
 
     return conv
 
+# TODO: switch this to work for multiple channel (colour) images
 def sobel_operator(img: np.ndarray, threshold: int) -> np.ndarray:
+    """Performs the combined sobel operator for edge detection on an image.
+
+    Args:
+        img: a single channel image represented as a numpy array.
+        threshold: the minimum value that a pixel is considered to be an edge.
+
+    Returns:
+        A numpy array which is the combination of the sobel operator in the x
+        and y direction.
+    """
+
     sobel_x = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]])
     sobel_y = np.array([[1, 2, 1], [0, 0, 0], [-1, -2, -1]])
     x = _kernel_convolution_2d(img, sobel_x)
