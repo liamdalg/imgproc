@@ -29,8 +29,6 @@ def sobel_operator(img: np.ndarray, threshold: int) -> np.ndarray:
     sobel_y = np.array([[1, 2, 1], [0, 0, 0], [-1, -2, -1]])
     x = _kernel_convolution_2d(img, sobel_x)
     y = _kernel_convolution_2d(img, sobel_y)
-    cv.imwrite('outx.jpg', x)
-    cv.imwrite('outy.jpg', y)
     
     combined = np.empty(x.shape)
     for i in range(x.shape[0]):
@@ -38,8 +36,7 @@ def sobel_operator(img: np.ndarray, threshold: int) -> np.ndarray:
             val = int(((x[i,j] ** 2) + (y[i,j] ** 2)) ** 0.5)
             combined[i,j] = val if val > threshold else 0
     
-    cv.imwrite('outcombined.jpg', combined)
-    return img
+    return combined
 
 
 def laplacian_operator(img: np.ndarray) -> np.ndarray:
