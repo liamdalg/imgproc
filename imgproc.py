@@ -47,19 +47,21 @@ def sobel_operator(img: np.ndarray, threshold: int) -> np.ndarray:
         and y direction.
     """
 
-    sobel_x = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]])
-    sobel_y = np.array([[1, 2, 1], [0, 0, 0], [-1, -2, -1]])
-    x = _kernel_convolution_2d(img, sobel_x)
-    y = _kernel_convolution_2d(img, sobel_y)
+    kernel_x = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]])
+    kernel_y = np.array([[1, 2, 1], [0, 0, 0], [-1, -2, -1]])
+    x = _kernel_convolution_2d(img, kernel_x)
+    y = _kernel_convolution_2d(img, kernel_y)
     
-    combined = np.empty(x.shape)
+    edges = np.empty(x.shape)
     for i in range(x.shape[0]):
         for j in range(x.shape[1]):
             val = int(((x[i,j] ** 2) + (y[i,j] ** 2)) ** 0.5)
-            combined[i,j] = val if val > threshold else 0
+            edges[i,j] = val if val > threshold else 0
     
-    return combined
+    return edges
 
 
-def laplacian_operator(img: np.ndarray) -> np.ndarray:
-    return img
+def laplacian_operator(img: np.ndarray, reduce_noise=True) -> np.ndarray:
+    kernel = np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]])
+    edges = _kernel_convolution_2d(img, kernel)
+    return edges
