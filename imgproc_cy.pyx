@@ -1,9 +1,12 @@
 #cython: language_level=3
 
 import numpy as np
+cimport cython
 
 DTYPE = np.double
 
+@cython.boundscheck(False)
+@cython.wraparound(False)
 def _kernel_convolution_2d(double[:, :] arr, double[:, :] kernel) -> np.ndarray:
     cdef Py_ssize_t kernel_rows = kernel.shape[0], kernel_cols = kernel.shape[1]
     cdef Py_ssize_t x_offset = kernel_rows // 2, y_offset = kernel_cols // 2
@@ -24,8 +27,8 @@ def _kernel_convolution_2d(double[:, :] arr, double[:, :] kernel) -> np.ndarray:
                     arr_col = j + l - y_offset
                     arr_row = i + k - x_offset
                     if 0 <= arr_row < height and 0 <= arr_col < width:
-                        tmp += arr[arr_row][arr_col] * flipped_kernel[k][l]
-            conv[i][j] = tmp
+                        tmp += arr[arr_row, arr_col] * flipped_kernel[k, l]
+            conv[i, j] = tmp
             tmp = 0
 
     return np.asarray(conv)
@@ -42,5 +45,5 @@ def sobel_operator(double[:, :] img, double threshold) -> np.ndarray:
         for j in range(x.shape[1]):
             val = int(((x[i,j] ** 2) + (y[i,j] ** 2)) ** 0.5)
             edges[i][j] = val if val > threshold else 0
-    
+
     return np.asarray(edges)
