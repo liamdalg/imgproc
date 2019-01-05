@@ -78,4 +78,4 @@ def sobel_operator(double[:, :] img, double threshold, bint gradient) -> np.ndar
 def make_example():
     img = cv2.imread('examples/circle.jpg', 0).astype(np.float64)
     out = sobel_operator(img, 70, True)
-    cv2.imwrite('test.jpg', out)
+    cv2.imwrite('examples/circle-grad.jpg', out)
