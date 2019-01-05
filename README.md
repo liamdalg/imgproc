@@ -1,10 +1,12 @@
-# imgproc
+# very WIP imgproc
 
-Small python app to perform image processing such as edge detection, sharpening etc. The main part is made using Cython so it requires some tinkering to get going first.
+An application I'm building in Python/Cython with Numpy to process images. VERY rough around the edges but try it out with:
 
-## Usage
+* `$ make`
+    * If make fails then change `python3-config` to your relevant version of python
+* Open Python
+* `import imgproc_cy`
+* `imgproc_cy.sobel_operator(img, 70, True)` to try out gradient highlighting with it.
 
-* Install `cv2` and `numpy`
-* Run `$ make` (if this doesn't work, then change `python3-config --cflags` to the relevant version of python)
-* Run `$ python -m unittest discover`
-* Yay
+![Circle Before](examples/circle.jpg)
+![Circle After](examples/circle-grad.jpg)
