@@ -51,8 +51,8 @@ def sobel_operator(img: np.ndarray, threshold: int, gradient: bool) -> np.ndarra
     kernel_y = np.array([[1, 2, 1], [0, 0, 0], [-1, -2, -1]], dtype=np.float64)
     # this will be changed once convolutions supports fused types :)
     typed = img.astype(np.float64)
-    x = conv.kernel_convolution_2d(img.astype(np.float64), kernel_x)
-    y = conv.kernel_convolution_2d(img.astype(np.float64), kernel_y)
+    x = conv.kernel_convolution_2d(typed, kernel_x)
+    y = conv.kernel_convolution_2d(typed, kernel_y)
 
     if gradient:
         return sobel_gradient(x, y, threshold)
