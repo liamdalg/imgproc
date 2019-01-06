@@ -10,10 +10,22 @@ An application I'm building in Python/Cython with Numpy to process images. VERY 
 * `out = imgproc.sobel_operator(img, 70, True)`
 * `cv2.imwrite('<outfile>', out)`
 
-![Circle Before](examples/circle.jpg)
-![Circle After](examples/circle-grad.jpg)
+<div align="center">
+    <img style="width: 40%" src="examples/circle.jpg"/>
+    <img style="width: 40%" src="examples/circle-grad.jpg"/>
+</div>
 
-![Valve Before](examples/valve.png)
-![Valve After](examples/valve-grad.png)
-
+<div align="center">
+    <img style="width: 40%" src="examples/valve.png"/>
+    <img style="width: 40%" src="examples/valve-grad.png"/> <br>
 Right now the gradient colouring is very susceptible to noise, sorry.
+</div>
+
+## Todo
+
+- [x] Cython kernel convolutions
+- [x] Gradient colouring in sobel operator
+- [ ] Add fused types
+- [ ] Remove noise on sobel gradient
+- [ ] Add Laplacian filter
+- [ ] Implement more in Cython
