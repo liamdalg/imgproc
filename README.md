@@ -8,7 +8,7 @@ An application I'm building in Python/Cython with Numpy to process images. VERY 
 * `import imgproc` and `import cv2`
 * `img = cv2.imread('<file>', 0)`
 * `out = imgproc.sobel_operator(img, 70, True)`
-* `cv2.imwrite('<outfile>', 0)`
+* `cv2.imwrite('<outfile>', out)`
 
 ![Circle Before](examples/circle.jpg)
 ![Circle After](examples/circle-grad.jpg)
