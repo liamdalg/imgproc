@@ -22,7 +22,7 @@ def gradient_to_rgb(x: int, y: int) -> (int, int, int):
     return colorsys.hsv_to_rgb(hue, 1, 0.75)
 
 
-def sobel_gradient(x: np.ndarray, y: np.ndarray, threshold: int) -> np.ndarray:
+def _sobel_gradient(x: np.ndarray, y: np.ndarray, threshold: int) -> np.ndarray:
     """
         Calculates the gradient for a particular pixel and colours it depending on the angle it
         makes with on a colour wheel. Positive angles are blue-ish while negative angles are
@@ -40,7 +40,7 @@ def sobel_gradient(x: np.ndarray, y: np.ndarray, threshold: int) -> np.ndarray:
     return edges
 
 
-def sobel_threshold(x: np.ndarray, y: np.ndarray, threshold: int) -> np.ndarray:
+def _sobel_threshold(x: np.ndarray, y: np.ndarray, threshold: int) -> np.ndarray:
     """
         Regular sobel operator with a threshold enforced to remove 'noise'.
     """
@@ -72,9 +72,9 @@ def sobel_operator(img: np.ndarray, threshold: int, gradient: bool) -> np.ndarra
     y = conv.kernel_convolution_2d(typed, kernel_y)
 
     if gradient:
-        return sobel_gradient(x, y, threshold)
+        return _sobel_gradient(x, y, threshold)
     else:
-        return sobel_threshold(x, y, threshold)
+        return _sobel_threshold(x, y, threshold)
 
 
 def gaussian_blur(img: np.ndarray) -> np.ndarray:
