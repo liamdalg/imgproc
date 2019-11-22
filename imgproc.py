@@ -60,9 +60,13 @@ def sobel_operator(img: np.ndarray, threshold: int, gradient: bool) -> np.ndarra
         threshold: the minimum magnitude of a pixel to be an edge (recommend 70)
         gradient: whether the colour the edges according to their angle
     """
-    kernel_x = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]], dtype=np.float64)
-    kernel_y = np.array([[1, 2, 1], [0, 0, 0], [-1, -2, -1]], dtype=np.float64)
-    # this will be changed once convolutions supports fused types :)
+    kernel_x = np.array([[1, 0, -1],
+                         [2, 0, -2],
+                         [1, 0, -1]], dtype=np.float64)
+    kernel_y = np.array([[1, 2, 1],
+                         [0, 0, 0],
+                         [-1, -2, -1]], dtype=np.float64)
+    # TODO: support fused-types instead of fixing to double/float64
     typed = img.astype(np.float64)
     x = conv.kernel_convolution_2d(typed, kernel_x)
     y = conv.kernel_convolution_2d(typed, kernel_y)
@@ -71,6 +75,21 @@ def sobel_operator(img: np.ndarray, threshold: int, gradient: bool) -> np.ndarra
         return sobel_gradient(x, y, threshold)
     else:
         return sobel_threshold(x, y, threshold)
+
+
+def gaussian_blur(img: np.ndarray) -> np.ndarray:
+    """
+        Blurs the image using a Gaussian kernel.
+    """
+    # TODO: make this a dynamically sized kernel
+    kernel = (1 / 256) * np.array([[1,  4,  6,  4, 1],
+                                   [4, 16, 24, 16, 4],
+                                   [6, 24, 36, 24, 6],
+                                   [4, 16, 24, 16, 4],
+                                   [1,  4,  6,  4, 1]], dtype=np.float64)
+    typed = img.astype(np.float64)
+    blurred = conv.kernel_convolution_2d(typed, kernel)
+    return blurred
 
 
 def _generate_examples():
