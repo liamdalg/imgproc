@@ -8,24 +8,25 @@ import numpy as np
 def magnitude(x, y):
     return ((x ** 2) + (y ** 2)) ** 0.5
 
+
 def gradient_to_rgb(x: int, y: int) -> (int, int, int):
     """
-        Converts x and y gradient value into an RGB value, depending on the 
-        ratio between y and x.
+        Converts x and y gradient value into an RGB value, depending on the ratio between y and x.
     """
     if x != 0:
         # normalize from the range [-0.5pi, 0.5pi] to [0, 1]
         hue = 0.5 + (math.atan(y / x) / math.pi)
-    else: hue = 0
+    else:
+        hue = 0
 
     return colorsys.hsv_to_rgb(hue, 1, 0.75)
 
 
 def sobel_gradient(x: np.ndarray, y: np.ndarray, threshold: int) -> np.ndarray:
     """
-        Calculates the gradient for a particular pixel and colours it
-        depending on the angle it makes with on a 'colour wheel'.
-        Positive angles are blue-ish while negative angles are reddish.
+        Calculates the gradient for a particular pixel and colours it depending on the angle it
+        makes with on a colour wheel. Positive angles are blue-ish while negative angles are
+        redd-ish.
     """
     edges = np.empty((x.shape[0], x.shape[1], 3))
     for i in range(x.shape[0]):
@@ -37,6 +38,7 @@ def sobel_gradient(x: np.ndarray, y: np.ndarray, threshold: int) -> np.ndarray:
                 edges[i, j, 2] = colour[2] * 255
 
     return edges
+
 
 def sobel_threshold(x: np.ndarray, y: np.ndarray, threshold: int) -> np.ndarray:
     """
@@ -67,7 +69,8 @@ def sobel_operator(img: np.ndarray, threshold: int, gradient: bool) -> np.ndarra
 
     if gradient:
         return sobel_gradient(x, y, threshold)
-    else: return sobel_threshold(x, y, threshold)
+    else:
+        return sobel_threshold(x, y, threshold)
 
 
 def _generate_examples():
