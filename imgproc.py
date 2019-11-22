@@ -82,13 +82,13 @@ def gaussian_blur(img: np.ndarray) -> np.ndarray:
         Blurs the image using a Gaussian kernel.
     """
     # TODO: make this a dynamically sized kernel
-    kernel = (1 / 256) * np.array([[1,  4,  6,  4, 1],
-                                   [4, 16, 24, 16, 4],
-                                   [6, 24, 36, 24, 6],
-                                   [4, 16, 24, 16, 4],
-                                   [1,  4,  6,  4, 1]], dtype=np.float64)
+    col_kernel = np.array([1, 4, 6, 4, 1], dtype=np.float64)[:, None]
+    row_kernel = np.array([1, 4, 6, 4, 1], dtype=np.float64)[None, :]
+
     typed = img.astype(np.float64)
-    blurred = conv.kernel_convolution_2d(typed, kernel)
+    col_blur = conv.kernel_convolution_2d(typed, col_kernel)
+    row_blur = conv.kernel_convolution_2d(col_blur, row_kernel)
+    blurred = (1 / 256) * row_blur
     return blurred
 
 
